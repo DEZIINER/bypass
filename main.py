@@ -83,8 +83,8 @@ def loopthread(message,otherss=False):
 def send_start(client: pyrogram.client.Client, message: pyrogram.types.messages_and_media.message.Message):
     app.send_message(message.chat.id, f"__👋 Hi **{message.from_user.mention}**, i am Link Bypasser Bot, just send me any supported links and i will you get you results.\nCheckout /help to Read More__",
     reply_markup=InlineKeyboardMarkup([
-        [ InlineKeyboardButton("🌐 Source Code", url="https://github.com/bipinkrish/Link-Bypasser-Bot")],
-        [ InlineKeyboardButton("Replit", url="https://replit.com/@bipinkrish/Link-Bypasser#app.py") ]]), 
+        [ InlineKeyboardButton("𝑶𝑾𝑵𝑬𝑹 😎", url="https://telegram.me/dr_starnge")],
+        [ InlineKeyboardButton("𝑺𝑼𝑷𝑷𝑶𝑹𝑻 ✅", url="https://telegram.me/myfliix_2") ]]), 
         reply_to_message_id=message.id)
 
 
@@ -103,7 +103,7 @@ def receive(client: pyrogram.client.Client, message: pyrogram.types.messages_and
 
 # doc thread
 def docthread(message):
-    msg = app.send_message(message.chat.id, "🔎 __bypassing...__", reply_to_message_id=message.id)
+    msg = app.send_message(message.chat.id, "🔎 𝙱𝚢𝚙𝚊𝚜𝚜𝚒𝚗𝚐...𝙿𝚕𝚎𝚊𝚜𝚎 𝚆𝚊𝚒𝚝", reply_to_message_id=message.id)
     print("sent DLC file")
     sess = requests.session()
     file = app.download_media(message)
