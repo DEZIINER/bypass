@@ -1757,7 +1757,7 @@ def moneykamalo(url):
 ##################################################################################################### 
 # easysky
 
-std::string easysky(const std::string& url) {
+std::string easysky(const std::string& url)
     httplib::SSLClient client("techy.veganab.co");
     std::string domain = "https://techy.veganab.co/";
     std::string code = url.substr(url.find_last_of("/") + 1);
