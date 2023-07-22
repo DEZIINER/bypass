@@ -1757,23 +1757,52 @@ def moneykamalo(url):
 ##################################################################################################### 
 # easysky
 
-def easysky(url):
-    client = cloudscraper.create_scraper(allow_brotli=False)
-    DOMAIN = "https://techy.veganab.co/"
-    url = url[:-1] if url[-1] == '/' else url
-    code = url.split("/")[-1]
-    final_url = f"{DOMAIN}/{code}"
-    ref = "https://veganab.co/"
-    h = {"referer": ref}
-    resp = client.get(final_url,headers=h)
-    soup = BeautifulSoup(resp.content, "html.parser")
-    inputs = soup.find_all("input")
-    data = { input.get('name'): input.get('value') for input in inputs }
-    h = { "x-requested-with": "XMLHttpRequest" }
-    time.sleep(8)
-    r = client.post(f"{DOMAIN}/links/go", data=data, headers=h)
-    try: return r.json()['url']
-    except: return "Something went wrong :("
+std::string easysky(const std::string& url) {
+    httplib::SSLClient client("techy.veganab.co");
+    std::string domain = "https://techy.veganab.co/";
+    std::string code = url.substr(url.find_last_of("/") + 1);
+    std::string final_url = domain + code;
+    std::string ref = "https://veganab.co/";
+    httplib::Headers headers = { { "Referer", ref } };
+    httplib::Result resp = client.Get(final_url.c_str(), headers);
+
+    std::map<std::string, std::string> data;
+    if (resp && resp->status == 200) {
+        std::string content = resp->body;
+        size_t start_pos = content.find("<input");
+        while (start_pos != std::string::npos) {
+            size_t name_start = content.find("name=\"", start_pos) + 6;
+            size_t name_end = content.find("\"", name_start);
+            size_t value_start = content.find("value=\"", name_end) + 7;
+            size_t value_end = content.find("\"", value_start);
+            std::string name = content.substr(name_start, name_end - name_start);
+            std::string value = content.substr(value_start, value_end - value_start);
+            data[name] = value;
+            start_pos = content.find("<input", value_end);
+        }
+    }
+    std::this_thread::sleep_for(std::chrono::seconds(8));
+
+    httplib::Headers post_headers = { { "x-requested-with", "XMLHttpRequest" } };
+    httplib::Result post_resp = client.Post((domain + "links/go").c_str(), data, post_headers);
+    if (post_resp && post_resp->status == 200) {
+        try {
+            json response_json = json::parse(post_resp->body);
+            if (response_json.contains("url")) {
+                return response_json["url"].get<std::string>();
+            }
+        } catch (...) {
+        }
+    }
+    return "Something went wrong :(";
+}
+
+int main() {
+    std::string url = "https://example.com";
+    std::string result = easysky(url);
+    std::cout << result << std::endl;
+    return 0;
+}
 
 
 ##################################################################################################### 
