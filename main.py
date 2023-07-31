@@ -85,7 +85,7 @@ def send_start(client: pyrogram.client.Client, message: pyrogram.types.messages_
     reply_markup=InlineKeyboardMarkup([
         [ InlineKeyboardButton("𝑶𝑾𝑵𝑬𝑹 😎", url="https://telegram.me/dr_starnge")],
         [ InlineKeyboardButton("𝑺𝑼𝑷𝑷𝑶𝑹𝑻 ✅", url="https://telegram.me/myfliix_2") ]]), 
-        [ InlineKeyboardButton("𝐃𝐎𝐍𝐀𝐓𝐄 😢", url="https://telegra.ph/file/7899f3e7bbf669d303219.jpg") ]]),    
+        [ InlineKeyboardButton("𝐃𝐎𝐍𝐀𝐓𝐄 😢", url="https://telegra.ph/file/7899f3e7bbf669d303219.jpg")],    
         reply_to_message_id=message.id)
 
 
